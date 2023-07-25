@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sist.dao.food-mapper">
+ 	<!-- 
+ 		입력값이 여러개 있을 때 = start,end 
+ 		resultType : SQL 실행 결과값 받는 경우에 쓴다 어떤 변수를 받을건지
+ 		
+ 		select count(*) from emp => resultType="int"
+ 		select pwd from member => resultType="string"
+ 		select pwd,name from member => resultType="MemberVO"
+ 		select pwd,name from member => resultType="hashmap"
+ 		=> VO에 없는 변수를 받을 때 hashmap 
+ 		select max(),min(),count()...  
+ 		parameterType : SQL 문장에 값이 들어갈떄 ex) ?에 값을 채우는 경우 값을 넣을때
+ 	 -->
+ 	<select id="foodListData" resultType="FoodVO">
+ 	  SELECT cno,title,subject,poster,link 
+ 	  from food_category 
+ 	</select>
+ </mapper>
