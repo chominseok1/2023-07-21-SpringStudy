@@ -8,7 +8,23 @@
 	 <init-param>
 	    <param-name>contextConfigLocation</param-name>
 	    <param-value>/WEB-INF/config/application-*.xml</param-value>
+	 </init-param> 
+	 <!--WebApplicationContext  --> 
+	 
+	 <!-- 자바 -->
+	 <!--  
+	   스프링 5 (주로 사용이 자바로만 코딩)
+	   XML 태그 = Annotation으로 변경됨 
+	 <init-param>
+	   <param-name>contextClass</param-name>
+	   <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
 	 </init-param>
+	 <init-param>
+	   <param-name>contextConfigLocation</param-name>
+	   <param-value>com.sist.config.SpringConfig</param-value>
+	 </init-param>
+	 -->
+	 <!-- 자바 -->
 	</servlet>
 	<servlet-mapping>
 	  <servlet-name>dispatcher</servlet-name>
@@ -19,10 +35,10 @@
 	<filter>
 	  <filter-name>encodingFilter</filter-name>
 	  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-	  <init-param>
+	    <init-param>
 	    <param-name>encoding</param-name>
 	    <param-value>UTF-8</param-value>
-	  </init-param>
+	  </init-param> 
 	</filter>
 	
 	<filter-mapping>
