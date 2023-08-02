@@ -51,4 +51,26 @@ public class BoardContoller {
 	  dao.boardInsertData(vo);
 	  return "redirect:../board/list.do";
   }
+  @GetMapping("detail.do")
+  public String board_detail(int no,Model model)
+  {
+	  BoardVO vo=dao.boardDetailData(no);
+	  model.addAttribute("vo", vo);
+	  // 문장 분석 
+	  model.addAttribute("main_jsp", "../board/detail.jsp");
+	  return "main/main";
+  }
+  @GetMapping("reply.do")
+  public String board_reply(int pno,Model model)
+  {
+	  model.addAttribute("pno", pno);
+	  model.addAttribute("main_jsp", "../board/reply.jsp");
+	  return "main/main";
+  }
+  @PostMapping("reply_ok.do") //form method="post" => postMapping
+  public String board_reply_ok(int pno,BoardVO vo)
+  {
+	  dao.boardReplyInsert(pno, vo);
+	  return "redirect:../board/list.do";
+  }
 }
