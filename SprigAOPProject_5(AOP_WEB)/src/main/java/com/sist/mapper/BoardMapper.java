@@ -1,6 +1,7 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -51,6 +52,67 @@ public interface BoardMapper {
   		+ "WHERE no=#{no}")
   public void boardDepthIncrement(int no);
  // 수정
+  @Select("SELECT pwd FROM springReplyBoard "
+  		+ "WHERE no=#{no}")
+  public String boardGetPassword(int no);
+  @Update("UPDATE springReplyBoard SET "
+  		+ "name=#{name},subject=#{subject},content=#{content} "
+  		+ "WHERE no=#{no}")
+  public void boardUpdate(BoardVO vo);
  // 삭제 ======= 트랜잭션 (스프링 : AOP)
+  @Select("SELECT root,depth FROM springReplyBoard "
+  		+ "WHERE no=#{no}")
+  public BoardVO boardInfoData(int no);
+  @Update("UPDATE springReplyBoard SET "
+  		+ "subject='관리자가 삭제한 게시물입니다',content='관리자가 삭제한 게시물입니다' "
+  		+ "WHERE no=#{no}") // 관리자에 의해 삭제된 게시물
+  public void boardSubjectUpdate(int no);
+  @Delete("DELETE FROM springReplyBoard "
+  		+ "WHERE no=#{no}")
+  public void boardDelete(int no);
+  @Update("UPDATE springReplyBoard SET "
+  		+ "depth=depth-1 "
+  		+ "WHERE no=#{no}")
+  public void boardDepthDecrement(int no);
  // 다중검색 (동적 쿼리)
+  @Select({
+	  "<script>"
+	  +"SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit FROM springReplyBoard "
+	  +"WHERE "
+	  +"<trim prefixOverrides=\"OR\">"  //or 제거
+	  	+"<foreach collection=\"fsArr\" item=\"fd\">"
+	  		+"<trim prefix=\"OR\">" // or 추가
+	  			+"<choose>"
+	  				+ "<when test=\"fd=='N'.toString()\">"
+	  					+"name LIKE '%'||#{ss}||'%'"
+	  				  +"</when>"
+	  				+ "<when test=\"fd=='S'.toString()\">"
+	  					+"subject LIKE '%'||#{ss}||'%'"
+	  				 +"</when>"
+	  				+ "<when test=\"fd=='C'.toString()\">"
+	  					+"content LIKE '%'||#{ss}||'%'"
+	  				 +"</when>"
+	  			+"</choose>"
+	  	  + "</trim>"
+	  	 +"</foreach>"
+	 + "</trim>"
+	  +"</script>"
+  })
+  public List<BoardVO> boardFindData(Map map);
+  /*
+   * 	name LIKE
+   *    OR subject LIKE
+   *    OR content LIKE
+   *    
+   *    name LIKE
+   *    subject LIKE
+   *    content LIKE
+   *    
+   *    name LIKE OR subject LIKE
+   *    name LIKE OR content LIKE
+   *    
+   *    subject LIKE OR content LIKE
+   *    
+   *    name LIKE OR subject LIKE OR content LIKE
+   */
 }
