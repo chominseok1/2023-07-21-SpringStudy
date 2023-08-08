@@ -88,7 +88,8 @@ public class FoodRestController {
 		 // curpage => 6,10 => startPage=6
 		 // 6 7 8 9 10
 		 int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
-		 
+		 if(endPage>totalpage)
+			 endPage=totalpage;
 		 // JSON 변경
 		 int i=0;
 		 JSONArray arr=new JSONArray(); // List대신
@@ -117,4 +118,6 @@ public class FoodRestController {
 	 }catch(Exception ex) {ex.printStackTrace();}
 	 return result;
  }
+ // 상세보기 
+ 
 }

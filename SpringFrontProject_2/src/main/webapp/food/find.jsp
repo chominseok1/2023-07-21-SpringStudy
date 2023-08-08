@@ -43,9 +43,9 @@
     <!-- class="active" -->
       <div class="text-center">
        <ul class="pagination">
-		  <li v-if="startPage>1"><a href="#">&lt;</a></li>
+		  <li v-if="startPage>1"><a href="#" v-on:click="prev()">&lt;</a></li>
 		  <li v-for="i in range(startPage,endPage)" :class="i==curpage?'active':''"><a href="#" v-on:click="selectPage(i)">{{i}}</a></li>
-		  <li v-if="endPage<totalpage"><a href="#">&gt;</a></li>
+		  <li v-if="endPage<totalpage"><a href="#" v-on:click="next()">&gt;</a></li>
 		</ul>
       </div>
     </div>
@@ -108,6 +108,14 @@
 		  },
 		  selectPage:function(page){
 			  this.curpage=page;
+			  this.send();
+		  },
+		  prev:function(){
+			  this.curpage=this.startPage-1;
+			  this.send();
+		  },
+		  next:function(){
+			  this.curpage=this.endPage+1;
 			  this.send();
 		  }
 	  }
