@@ -43,9 +43,9 @@
     <!-- class="active" -->
       <div class="text-center">
        <ul class="pagination">
-		  <li><a href="#">&lt;</a></li>
+		  <li v-if="startPage>1"><a href="#">&lt;</a></li>
 		  <li v-for="i in range(startPage,endPage)" :class="i==curpage?'active':''"><a href="#" v-on:click="selectPage(i)">{{i}}</a></li>
-		  <li><a href="#">&gt;</a></li>
+		  <li v-if="endPage<totalpage"><a href="#">&gt;</a></li>
 		</ul>
       </div>
     </div>
