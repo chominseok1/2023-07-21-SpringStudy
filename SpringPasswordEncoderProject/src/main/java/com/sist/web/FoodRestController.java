@@ -1,6 +1,9 @@
 package com.sist.web;
 
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
+
 import com.sist.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,13 +55,16 @@ public class FoodRestController {
 	  return json;
   }
   @GetMapping(value="food/food_detail_vue.do", produces="text/plain;charset=UTF-8")
-  public String food_detail(int fno) throws Exception
+  public String food_detail(int fno,HttpSession session) throws Exception
   {
+	  String id=(String)session.getAttribute("id");
+	  System.out.println("id="+id);
 	  String result="";
 	  FoodVO vo=dao.foodDetailData(fno);
 	  String addr=vo.getAddress();
 	  addr=addr.substring(0, addr.indexOf("지번"));
 	  vo.setAddress(addr.trim());
+	  vo.setSessionId(id);
 	  ObjectMapper mapper=new ObjectMapper();
 	  result=mapper.writeValueAsString(vo);
 	  //writeValueAsString
