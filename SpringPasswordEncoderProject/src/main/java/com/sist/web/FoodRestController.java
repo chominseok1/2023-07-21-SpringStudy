@@ -51,4 +51,17 @@ public class FoodRestController {
 	  String json=mapper.writeValueAsString(list);
 	  return json;
   }
+  @GetMapping(value="food/food_detail_vue.do", produces="text/plain;charset=UTF-8")
+  public String food_detail(int fno) throws Exception
+  {
+	  String result="";
+	  FoodVO vo=dao.foodDetailData(fno);
+	  String addr=vo.getAddress();
+	  addr=addr.substring(0, addr.indexOf("지번"));
+	  vo.setAddress(addr.trim());
+	  ObjectMapper mapper=new ObjectMapper();
+	  result=mapper.writeValueAsString(vo);
+	  //writeValueAsString
+	  return result;
+  }
 }
