@@ -2,6 +2,7 @@ package com.sist.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,11 @@ public class FoodDAO {
  {
 	 return mapper.foodCategoryListData();
  }
+ 
+ /*@Select("SELECT title,subject FROM food_category "
+	  		+ "WHERE cno=#{cno}")*/
+	  public CategoryVO foodCategoryInfoData(int cno)
+	  {
+		  return mapper.foodCategoryInfoData(cno);
+	  }
 }
