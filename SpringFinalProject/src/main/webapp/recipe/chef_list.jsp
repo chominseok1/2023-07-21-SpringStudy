@@ -25,9 +25,9 @@
       <!-- ################################################################################################ -->
       <div id="gallery">
         <figure>
-          <header class="heading">총 <span style="color:green;font-size:35px">{{count}}</span> 개</header>
+          <header class="heading">쉐프 목록</header>
           <ul class="nospace clear">
-            <li v-for="vo,index in recipe_list" :class="index%4==0?'one_quarter first':'one_quarter'"><a href="#"><img :src="vo.poster" :title="vo.title"></a></li>
+            <li v-for="vo,index in chef_list" :class="index%4==0?'one_quarter first':'one_quarter'"><a :href="'../recipe/chef_find.do?chef='+vo.chef"><img :src="vo.poster" :title="vo.chef" style="width: 100%"></a></li>
           </ul>
         </figure>
       </div>
@@ -51,13 +51,13 @@
   new Vue({
 	el:'.container',
 	data:{
-		recipe_list:[],
+		chef_list:[],
 		page_list:{},
 		curpage:1,
 		totalpage:0,
 		startPage:0,
-		endPage:0,
-		count:''
+		endPage:0
+		
 	},
 	mounted:function(){
 		this.dataRecive();
@@ -65,19 +65,19 @@
 	methods:{
 		dataRecive:function(){
 			// 해당 페이지 데이터 읽기
-			axios.get('http://localhost/web/recipe/recipe_list_vue.do',{
+			axios.get('http://localhost/web/recipe/chef_list_vue.do',{
 				params:{
 					page:this.curpage
 				}
 			}).then(response=>{
 				console.log(response.data)
-				this.recipe_list=response.data
+				this.chef_list=response.data
 			}).catch(error=>{
 				console.log(error.response)
 			})
 			
 			//페이지 정보
-			axios.get('http://localhost/web/recipe/page_list_vue.do',{
+			axios.get('http://localhost/web/recipe/chef_page_vue.do',{
 				params:{
 					page:this.curpage
 				}
@@ -88,7 +88,6 @@
 				this.totalpage=this.page_list.totalpage
 				this.startPage=this.page_list.startPage
 				this.endPage=this.page_list.endPage;
-				this.count=this.page_list.count
 			}).catch(error=>{
 				console.log(error.response)
 			})

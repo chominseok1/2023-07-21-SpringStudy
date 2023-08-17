@@ -20,4 +20,30 @@ public class RecipeDAO {
    {
 	   return mapper.recipeListData(map);
    }
+   //@Select("SELECT COUNT(*) FROM recipe")
+   public int recipeRowCount()
+   {
+	   return mapper.recipeRowCount();
+   }
+   
+  /* @Select("SELECT chef,poster,num "
+	   		+ "FROM (SELECT chef,poster,rownum as num "
+	   		+ "FROM (SELECT chef,poster "
+	   		+ "FROM chef)) "
+	   		+ "WHERE num BETWEEN #{start} AND #{end}")*/
+   public List<ChefVO> chefListData(Map map)
+   {
+		   return mapper.chefListData(map);
+   }
+  
+ // @Select("SELECT CEIL(COUNT(*)/20.0) FROM chef")
+  public int chefTotalPage()
+  {
+	 return mapper.chefTotalPage();
+  }
+ // @Select("SELECT * FROM chef WHERE chef=#{chef}")
+  public ChefVO chefInfoData(String chef)
+  {
+	  return mapper.chefInfoData(chef);
+  }
 }

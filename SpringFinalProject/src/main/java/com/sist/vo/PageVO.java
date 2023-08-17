@@ -9,5 +9,5 @@ public class PageVO {
   private int curpage;
   private int totalpage;
   private int startPage,endPage;
-  private int count;
+  private String count;
 }
