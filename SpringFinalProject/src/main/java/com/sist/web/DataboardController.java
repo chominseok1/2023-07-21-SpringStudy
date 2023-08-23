@@ -48,7 +48,7 @@ public class DataboardController {
 		for(int i=0;i<list.size();i++)
 		{
 			Keyword wrd=list.get(i);
-		 if(wrd.getCnt()>2 && wrd.getString().length()>1)
+		 if(wrd.getCnt()>1)
 		 {
 			WordVO wvo=new WordVO();
 			wvo.setCount(wrd.getCnt());
