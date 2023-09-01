@@ -116,7 +116,7 @@ public class MailManager {
 	              			  +"<table>"
 	              			  + "<thead>"
 	              			  + "<tr>"
-	              			  + "<th width=15%>회원번호</th>"
+	              			  + "<th width=15%>${vo.no}</th>"
 	              			  + "<td width=85%>1</td>"
 	              			  + "</tr>"
 	              			 + "<tr>"
