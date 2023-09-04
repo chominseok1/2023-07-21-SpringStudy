@@ -14,7 +14,9 @@ import com.sist.web.entity.*;
 @CrossOrigin("http://localhost:3000")
 public class FoodRestController {
   @Autowired
-  private FoodDAO dao;
+  private FoodCategoryDAO dao;
+  @Autowired
+  private FoodDAO fdao;
   
   @GetMapping("category1")
   public List<CategoryEntity> food_category1()
@@ -33,5 +35,24 @@ public class FoodRestController {
   {
 	  List<CategoryEntity> list=dao.categoryData3();
 	  return list;
+  }
+  
+  @GetMapping("category_info_react")
+  public CategoryEntity category_info(int cno)
+  {
+	  CategoryEntity vo=dao.findByCno(cno);
+	  return vo;
+  }
+  @GetMapping("food_list_react")
+  public List<FoodEntity> food_list(int cno)
+  {
+	  List<FoodEntity> list=fdao.foodListData(cno);
+	  return list;
+  }
+  @GetMapping("food_detail_react")
+  public FoodEntity food_detail(int fno)
+  {
+	  FoodEntity vo=fdao.findByFno(fno);
+	  return vo;
   }
 }

@@ -7,11 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.web.entity.*;
 @Repository
-public interface FoodDAO extends JpaRepository<CategoryEntity, Integer> {
-  @Query(value="SELECT * FROM food_category WHERE cno BETWEEN 1 AND 12",nativeQuery = true)
-  public List<CategoryEntity> categoryData1();
-  @Query(value="SELECT * FROM food_category WHERE cno BETWEEN 13 AND 18",nativeQuery = true)
-  public List<CategoryEntity> categoryData2();
-  @Query(value="SELECT * FROM food_category WHERE cno BETWEEN 19 AND 30",nativeQuery = true)
-  public List<CategoryEntity> categoryData3();
+public interface FoodDAO extends JpaRepository<FoodEntity,Integer> {
+	public FoodEntity findByFno(int fno);
+	
+	@Query(value="SELECT * FROM food_house WHERE cno=:cno",nativeQuery = true)
+	public List<FoodEntity> foodListData(Integer cno);
+
 }
